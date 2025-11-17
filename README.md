@@ -74,18 +74,27 @@ This design introduces human interpretability into a traditionally opaque optimi
 
 The latest and most effective approach in this project uses a neural network (NN) surrogate model to approximate the hidden function.
 Key motivations:
+	
 	•	NNs handle non-linear surfaces effectively
+	
 	•	They scale better than Gaussian Processes in higher dimensions
+	
 	•	They allow smooth interpolation even when the function values are extremely small (common in this dataset)
 
-The surrogate is a small fully-connected network: Input → Linear(64) → ReLU → Linear(32) → ReLU → Output(1)
+The surrogate is a small fully-connected network: 
+
+Input → Linear(64) → ReLU → Linear(32) → ReLU → Output(1)
+
 This neural architecture provides sufficient capacity while avoiding overfitting under small datasets.
 
 Acquisition Strategy: Monte Carlo Candidate Sampling
 
 To propose the next query point, the system uses:
+	
 	1.	Random Monte Carlo sampling in the normalised search space
+	
 	2.	Surrogate predictions over these samples
+	
 	3.	Selection of the highest predicted value (“greedy exploitation”)
 
 This works especially well when:
@@ -94,20 +103,24 @@ This works especially well when:
 	•	The model is updated every iteration
 
 The general procedure:
+	
 	1.	Sample 5,000–10,000 random candidate points
 	2.	Normalise them using the fitted StandardScaler
-	3.	Predict outputs using the NN surrogate
+	3.	Predict outputs using the NN surrogate	
 	4.	Select the candidate with the highest predicted value
 	5.	De-normalise to obtain the real input value
 
 This approach merges the principles of acquisition functions (e.g., Expected Improvement) with the flexibility of high-volume Monte Carlo sampling.
 
-6. Future Directions
+6. Future Directions and Planned extensions:
 
-Planned extensions:
-	•	Ensemble neural surrogates to estimate predictive uncertainty
-	•	Trust-region–based BBO (e.g., TuRBO)
-	•	Bayesian neural networks for uncertainty-aware optimisation
-	•	Dimensionality reduction to isolate key influencing variables
-	•	Benchmark comparisons using Optuna, BoTorch, or Nevergrad
+Ensemble neural surrogates to estimate predictive uncertainty
+
+Trust-region–based BBO (e.g., TuRBO)
+
+Bayesian neural networks for uncertainty-aware optimisation
+
+Dimensionality reduction to isolate key influencing variables
+
+Benchmark comparisons using Optuna, BoTorch, or Nevergrad
 
