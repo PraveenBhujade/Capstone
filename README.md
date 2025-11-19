@@ -124,3 +124,16 @@ Dimensionality reduction to isolate key influencing variables
 
 Benchmark comparisons using Optuna, BoTorch, or Nevergrad
 
+
+7. Future Structural Improvements and Detailed BBO Plan
+
+The next stage of this Black Box Optimisation project focuses on transforming the current pipeline into a more scalable, uncertainty-aware and modular optimisation framework. The core priority is enhancing the surrogate modelling approach and making the acquisition process more intelligent and robust. The most significant structural improvement involves shifting from a single neural network surrogate to ensemble-based models, which provide better uncertainty estimates and more reliable guidance for choosing future query points. This aligns with state-of-the-art BBO research, where uncertainty estimation is essential for balancing exploration and exploitation.
+
+Another major advancement is integrating trust-region strategies, such as TuRBO, which dynamically restrict the search to areas where the surrogate is reliable. This prevents wasted evaluations in poorly modelled regions and encourages systematic refinement around high-potential areas. The acquisition module will also be redesigned to support multiple strategies—Expected Improvement, Upper Confidence Bound, Thompson Sampling and enhanced Monte Carlo methods—allowing the optimiser to adapt as more data becomes available.
+
+Future enhancements also include improved candidate-generation techniques such as Sobol sequences and Latin Hypercube Sampling, which provide better coverage of the search space than random sampling. Dimensionality reduction methods (e.g., PCA, autoencoders) will be introduced to identify and eliminate weak features, improving model stability and interpretability.
+
+The longer-term plan follows a structured optimisation loop: preprocess data → train surrogate ensembles → compute acquisition scores → generate candidate points → select the next best query → update the model → repeat. Visualisations, including heatmaps, PCA projections and uncertainty maps, will make the process transparent and easier to evaluate.
+
+Finally, benchmarking against established frameworks such as BoTorch, Optuna and Nevergrad will ensure the approach is competitive, reliable and grounded in modern optimisation standards. Together, these improvements create a clear roadmap for evolving the current system into a more powerful and research-aligned BBO engine.
+
